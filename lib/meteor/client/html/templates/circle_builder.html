@@ -1,0 +1,64 @@
+<template name="circle_builder">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span3">
+      <br>
+      <a href="/">Home</a> &gt; Build a a new circle
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+    </div>
+    <div class="span6">
+      <h2>Build a a new circle</h2>
+      <ol>
+        <li><strong>Find a student</strong><br>
+          <label for="student">Type a student's name to begin building a circle of support.</label>
+          <input type="text" id="student" />
+        </li>
+
+        <li><strong>Add support roles</strong><br>
+          <label>Fill in the support roles with the appropriate contacts
+            from your school. Add more in-school resources as needed, and
+            consider suggesting external resources that might be useful
+            for this student.</label>
+          <ul class="unstyled">
+            <li><i class="icon-star"></i> {{> circle_builder_roles}} <input type="text" /> <button class="btn btn-warning">-</button></li>
+            <li><i class="icon-star"></i> {{> circle_builder_roles}} <input type="text" /> <button class="btn btn-warning">-</button></li>
+            <li><i class="icon-star"></i> {{> circle_builder_roles}} <input type="text" /> <button class="btn btn-warning">-</button></li>
+            <li><i class="icon-star"></i> {{> circle_builder_roles}} <input type="text" /> <button class="btn btn-warning">-</button></li>
+            <li><i class="icon-star"></i> {{> circle_builder_roles}} <input type="text" /> <button class="btn btn-warning">-</button></li>
+            <li><button class="btn btn-info">+</button> <a class="fakelink">Add a row</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <i class="icon-star"></i> Primary Contact<br>
+              <a class="fakelink">Suggest out-of-school roles</a>
+              <br><br>
+            </li>
+          </ul>
+        <li class="form-inline"><strong>Choose delivery</strong>
+          <ul class="unstyled">
+            <li>
+              <label>Add a note if you'd like, then choose the best delivery
+                option for this student's family. This student's information
+                will also be saved under "Your Students."</label>
+              <textarea class="span5" placeholder="Add a note (optional)"></textarea><br><br><br><br>
+            </li>
+            <li>
+              <input type="radio" /> <label>Email</label>
+              <input type="text" placeholder="Enter parent or family email address" style="width:20em;" /><br>
+            </li>
+            <li>
+              <input type="radio"/> <label>Print</label><br><br>
+            </li>
+            <li>
+              <button class="btn btn-primary" id="circle-builder-next">Go</button>
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</template>

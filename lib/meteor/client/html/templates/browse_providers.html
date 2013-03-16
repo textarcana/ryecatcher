@@ -1,0 +1,32 @@
+<template name="browse_providers">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span5">
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      &nbsp;
+    </div>
+    <div class="span6">
+      <h3 style="color: #aaa;">Browse a list of service providers</h3>
+
+      {{#each listings}}
+          <h4 style="border-top: 2px solid;">{{name}}</h4>
+          <h5 style="color: #aaa; border-top: 1px solid;">{{shortAddress}}
+            <a class="btn dropdown-toggle pull-right"><span class="caret"></span></a>
+          </h5>
+
+          <h6>Where are services provided?</h6>
+
+          <p>{{serviceLocations}}</p>
+
+          <h6>What types of services does this provider offer to students and families?</h6>
+
+          <p>{{services}}</p>
+      {{/each}}
+
+    </div>
+  </div>
+</template>

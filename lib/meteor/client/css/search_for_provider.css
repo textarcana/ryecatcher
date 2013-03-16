@@ -1,0 +1,5 @@
+.search-for-provider li li,
+.search-menu li li {
+   cursor: pointer;
+   color: #0088cc;
+}

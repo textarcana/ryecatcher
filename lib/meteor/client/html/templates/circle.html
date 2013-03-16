@@ -1,0 +1,75 @@
+<template name="circle">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span5">
+      <br>
+      &nbsp;
+    </div>
+    <div class="span3">
+      <br>
+      <a class="dropdown-toggle">Luella Edwards <span class="caret"></span></a> |
+      <a class="fakelink">Support</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <ul class="unstyled">
+        <li><h3>Add In-School Role</h3>
+          <ul class="unstyled">
+            {{#each inSchoolRoles}}
+            <li class="fakelink  inSchoolRole">
+              {{this}}
+            </li>
+            {{/each}}
+          </ul>
+        </li>
+        <li><br><h3>Add Out-of-School Role</h3>
+          <ul class="unstyled">
+            {{#each externalRoles}}
+            <li class="fakelink  externalRole">
+              {{this}}
+            </li>
+            {{/each}}
+          </ul>
+        </li>
+        <li class="well" style="margin-top: 8em;">
+          <h4>Next Steps</h4>
+          <ul>
+            <li>Use your circle to fill important roles for your child's IEP.</li>
+            <li>Access <a class="fakelink">Goalbook</a> to track and
+              collaborate on your student's learning and behavior goals.</li>
+            <li>Find other resources to help your child on <a class="fakelink">Gooru.</a></li>
+          </ul>
+        </li>
+        {{> local_parent_network}}
+      </ul>
+    </div>
+    <div class="span9 circleDisplay{{circleDisplaySize}}">
+      <div class="circle">
+        <!-- { { > circle_colors } } -->
+        <img src="/images/circle-v023/{{circleDisplaySize}}figure-circle.png" alt="{{circleDisplaySize}} circle" class="circle{{circleDisplaySize}}" >
+
+        <ul class="unstyled listings">
+          {{#each providerRoles.roles.inSchool}}
+              {{> listing_card}}
+          {{/each}}
+
+          {{#each providerRoles.roles.external}}
+              {{> listing_card}}
+          {{/each}}
+
+          <li id="yourStudent">
+            <p>
+              <b style="font-size: 180%;">Your Student</b>
+              <br>
+              <br>
+              Abigail B.
+            </p>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+  {{> overlay_circle}}
+</template>

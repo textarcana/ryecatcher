@@ -1,0 +1,111 @@
+<template name="educator_landing_page">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span5">
+      <br>
+      <span style="color: #aaa; font-size: 180%;">Welcome, Mrs. Edwards.</span>
+    </div>
+    <div class="span3">
+      <br>
+      <a class="dropdown-toggle">Luella Edwards <span class="caret"></span></a> | <a class="fakelink">Support</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <h2>Your Students</h2>
+
+      <div class="btn-group">
+        <button class="btn active">View All</button>
+        <button class="btn"><a class="fakelink">View By Group</a></button>
+      </div>
+
+      <br>
+      &nbsp;
+
+      <ul class="unstyled">
+        <li>Hazel Bender</li>
+        <li> Paige Chen</li>
+        <li> Kristina Chung</li>
+        <li> Julia Desai</li>
+        <li> Kristine Dougherty</li>
+        <li> Jean Griffin</li>
+
+        <li>Elsie Hamilton</li>
+        <li> Gretchen Hill</li>
+        <li> Dolores McLaughlin</li>
+        <li> Marion Moon</li>
+
+        <li>Karen Puckett</li>
+        <li> Sandy Raynor</li>
+        <li> Patrick Song</li>
+        <li> Malcolm Wagner</li>
+        <li> Jerome Wallace</li>
+
+      </ul>
+
+    </div>
+    <div class="span6">
+      <h2 style="display:inline;">Recent Activity</h2>
+      <input type="button" class="btn btn-primary pull-right" style="margin-top: 12px;" value="Add a note"/>
+
+
+      <h4 style="border-top: 2px solid;">February 28, 2013</h4>
+      <h5 style="color: #aaa; border-top: 1px solid;">
+        <a class="btn dropdown-toggle pull-right"><span class="caret"></span></a>
+      </h5>
+
+      <h6 style="color: #999;">11:26am</h6>
+      <p><b>Karen Puckett</b> was added to RyeCatcher and placed in the group "6th Grade."</p>
+
+
+      <h6 style="color: #999;">7:18am</h6>
+      <p><b>Malcolm Wagner</b> was added to RyeCatcher and placed in the group "5th Grade."</p>
+
+      <h4 style="border-top: 2px solid;">February 26, 2013</h4>
+      <h5 style="color: #aaa; border-top: 1px solid;">
+        <a class="btn dropdown-toggle pull-right"><span class="caret"></span></a>
+      </h5>
+
+      <h6 style="color: #999;">11:26am</h6>
+      <p><b>Marion Moon</b> was added to RyeCatcher and placed in the group "6th Grade."</p>
+
+
+      <h6 style="color: #999;">7:18am</h6>
+      <p><b>Jean Griffin</b> was added to RyeCatcher and placed in the group "5th Grade."</p>
+
+
+      <h6 style="color: #999;">6:30am</h6>
+      <p><b>Sandy Raynor</b> was added to RyeCatcher and placed in the group "5th Grade."</p>
+
+      <p style="float: right;"><a class="fakelink">view more</a></p>
+
+    </div>
+    <div class="span3">
+      <ul class="unstyled">
+        <li><a href="/build/circle" style="font-weight: bold;">Build a new circle</a></li>
+
+        {{> search_menu}}
+
+        <br>
+        <br>
+        <li class="well">
+          <h5>Your Profile</h5>
+          <address>
+            3271 Lake Shelbyville Circle<br>
+            Shelbyville, XY 19711<br>
+            P: (555) 219-7470<br>
+            <a class="fakelink">lledwards@example.com</a>
+          </address>
+          <p>Fusce euismod, velit nec viverra tempus, nisl risus
+          luctus lorem, quis malesuada urna badenta.</p>
+          <a class="pull-right fakelink">edit <span style="color: black;">|</span> view details</a>
+        </li>
+
+
+        {{> local_parent_network}}
+
+
+      </ul>
+    </div>
+  </div>
+</template>

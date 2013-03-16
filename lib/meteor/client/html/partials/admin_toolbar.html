@@ -1,0 +1,20 @@
+<template name="adminToolbar">
+{{#if show}}
+  <div id="adminToolbar" class="offset8 span4">
+    <h3>Admin Toolbar</h3>
+
+    {{#each warnings}}
+        <br><span class="warn">WARNING: {{message}}</span>
+    {{/each}}
+
+        <ul class="unstyled">
+    {{#each messages}}
+        <li><p>{{label}} <span>{{value}}</span></p></li>
+    {{/each}}
+        </ul>
+
+        <br>
+        <a href="/browse/screens" class="pull-right">site map</a>
+  </div>
+{{/if}}
+</template>

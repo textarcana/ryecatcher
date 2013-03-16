@@ -1,0 +1,60 @@
+<template name="create_profile">
+  <div class="row">
+    {{> logo}}
+    <div class="span9 nav">
+      <br>
+      <!-- { {loginButtons align="right"} } -->
+      <a class='pull-right'>What is RyeCatcher?</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset1 span7">
+      <div>
+        <p style="margin-top: 2em;"><img src="/images/sprites/educator-family.png" alt="educator or family" style="width: 40%; height: 40%;"></p>
+
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="/profile/create/educator">For Educators</a>
+          </li>
+          <li class="active">
+            <a href="/profile/create">For Student's Family</a>
+          </li>
+        </ul>
+
+        <p>Been here before? <a class="fakelink">Log in</a> to access your student's information.</p>
+
+        <p>Welcome to RyeCatcher, where you can create a network of
+          professionals and build a circle of support for your
+          child. To get started, fill in as much information as you
+          can below, or <a class="fakelink">upload your own data.</a></p>
+
+        <fieldset>
+
+              <ul class="unstyled">
+                <li><label>My child is in {{> grade_select_menu}} grade.</label></li>
+                <li>
+                  <label>We live in <input type="text" placeholder="{{zip}}" id="zipCode"></label>
+                  <img src="/images/placeholder/small_map.png" alt="I'M IN UR FORM, MAPPIN UR ZIP CODEZ" class="littleMap hide pull-right">
+                </li>
+                <li>My child:</li>
+                <li><label class="radio"><input type="radio" name="IEP" id="hasIEP">
+                    has an Individualized Education Plan <b>(IEP).</b></label></li>
+                <li><label class="radio"><input type="radio" name="IEP" id="hasDisability">
+                    has a disability as defined by <b>Section 504.</b></label></li>
+                <li><label class="radio"><input type="radio" name="IEP" id="undiagnosed">
+                    is <b>not yet diagnosed,</b> but has symptoms of special needs.</label></li>
+              </ul>
+              <ul class="unstyled">
+                <li>My child:</li>
+                <li><label class="checkbox"><input type="checkbox" id="schoolDifficulty">
+                    has <b>difficulty with school work.</b></label></li>
+                <li><label class="checkbox"><input type="checkbox" id="actingOut">
+                    is <b>acting out</b> at school, home, and/or other places.</label></li>
+                <li class="offset4"><input type="button" class="btn btn-primary" value="next" id="student-form-start-button" /></li>
+              </ul>
+
+          </fieldset>
+      </div>
+    </div>
+  </div>
+</template>

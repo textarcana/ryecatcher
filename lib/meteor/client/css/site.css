@@ -1,0 +1,34 @@
+.site-logo h1 {
+   border: 1px;
+   margin-left: -20px;
+   padding-left: 20px;
+   background-image: url("/images/sprites/wheat.png");
+   background-position: left top;
+   background-repeat: no-repeat;
+   background-size: 18px;
+}
+
+
+.listings li {
+   padding: 4px;
+}
+
+.listings li p {
+   min-height: 140px;
+   width: 140px;
+   border-radius: 5px;
+   border: 1px solid #aaa;
+   padding: 8px;
+   background: white;
+}
+
+.fakelink {
+   cursor: pointer;
+   color: #0088cc;
+}
+
+.littleMap {
+   position: relative;
+   top: -6em;
+   left: -1em;
+}

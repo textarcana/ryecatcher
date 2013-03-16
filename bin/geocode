@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Convert an address to latitude and longitude coordinates. See
+# https://developers.google.com/maps/documentation/geocoding/
+#
+# HOW TO USE:
+#
+#     bin/geocode the-googleplex 1600+Amphitheatre+Parkway,+Mountain+View,+CA
+#
+# check the status of downloaded files like this:
+#
+#     ls ~/ryecatcher/*json | xargs grep -i 'status'
+
+if [ -z "$2" ]
+then
+  echo "Usage: `basename $0` <name> <address>"
+  exit 1
+fi
+
+set -x
+wget  --output-document=$1.json \
+    "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=$2" && \
+    jsonlint -q $1.json
+
+

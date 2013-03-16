@@ -1,0 +1,76 @@
+<template name="create_profile_educator">
+  <div class="row">
+    {{> logo}}
+    <div class="span9 nav">
+      <br>
+      <a class='pull-right'>What is RyeCatcher?</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset1 span7">
+      <div>
+        <p style="margin-top: 2em;"><img src="/images/sprites/educator-family.png" alt="educator or family" style="width: 40%; height: 40%;"></p>
+
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="/profile/create/educator">For Educators</a>
+          </li>
+          <li>
+            <a href="/profile/create">For Student's Family</a>
+          </li>
+        </ul>
+
+        <p>Please complete the following details so we can suggest resources to help your child.</p>
+
+        <fieldset>
+          <form name="create_profile_educator">
+            <p class="lead">{{checkboxLabels.iep.explanation}}</p>
+            <ul class="unstyled span3">
+              {{#each checkboxLabels.iep.itemsPageOne}}
+              <li><label class="checkbox"><input type="checkbox">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            <ul class="unstyled span3">
+              {{#each checkboxLabels.iep.itemsPageTwo}}
+              <li><label class="checkbox"><input type="checkbox">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            <p class="clearfix"><!-- hack --></p>
+
+            <p class="lead">{{checkboxLabels.disability.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.disability.items}}
+              <li><label class="checkbox"><input type="checkbox">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            <p class="lead">{{checkboxLabels.subjects.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.subjects.items}}
+              <li><label class="checkbox"><input type="checkbox">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+
+            <p class="lead">{{checkboxLabels.actingUp.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.actingUp.items}}
+              <li><label class="checkbox"><input type="checkbox">{{this}}</label></li>
+              {{/each}}
+              <li><label class="checkbox pull-left"><input type="checkbox">Other</label>
+                <input style="margin-left: 1em;" type="text" placeholder="please describe" /></li>
+            </ul>
+
+            <p class="offset4"><button class="btn btn-primary" id="educator-profile-next">Next</button></p>
+
+          </form>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</template>

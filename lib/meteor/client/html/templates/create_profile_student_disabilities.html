@@ -1,0 +1,110 @@
+<template name="create_profile_student_disabilities">
+  <div class="row">
+    {{> logo}}
+    <div class="span9 nav">
+      <br>
+      <a class='pull-right'>What is RyeCatcher?</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset1 span7">
+      <div>
+        <p style="margin-top: 2em;"><img src="/images/sprites/educator-family.png" alt="educator or family" style="width: 40%; height: 40%;"></p>
+
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="/profile/create/educator">For Educators</a>
+          </li>
+          <li class="active">
+            <a href="/profile/create">For Student's Family</a>
+          </li>
+        </ul>
+
+        <p>Please complete the following details so we can suggest resources to help your child.</p>
+
+        <fieldset>
+          {{#if isIEP}}
+
+            <p class="lead">{{checkboxLabels.iep.explanation}}</p>
+
+            <ul class="unstyled span3">
+              {{#each checkboxLabels.iep.itemsPageOne}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.iep.explanation}}">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            <ul class="unstyled span3">
+              {{#each checkboxLabels.iep.itemsPageTwo}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.iep.explanation}}">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            {{/if}}
+
+            <p class="clearfix"></p>
+
+            {{#if isDisabled}}
+
+            <p class="lead">{{checkboxLabels.disability.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.disability.items}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.disability.explanation}}">{{this}}</label></li>
+              {{/each}}
+              <li><label class="radio pull-left"><input type="radio" name="{{checkboxLabels.disability.explanation}}">Other</label>
+                <input style="margin-left: 1em;" type="text" placeholder="please describe" />
+              </li>
+            </ul>
+
+            {{/if}}
+
+            {{#if isUndiagnosed}}
+
+            <p class="lead">{{checkboxLabels.undiagnosed.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.undiagnosed.items}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.undiagnosed.explanation}}">{{this}}</label></li>
+              {{/each}}
+              <li><label class="radio pull-left"><input type="radio" name="{{checkboxLabels.undiagnosed.explanation}}">Other</label>
+                <input style="margin-left: 1em;" type="text" placeholder="please describe" />
+              </li>
+            </ul>
+
+            {{/if}}
+
+            {{#if isHavingDifficulty}}
+
+            <p class="lead">{{checkboxLabels.subjects.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.subjects.items}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.subjects.explanation}}">{{this}}</label></li>
+              {{/each}}
+            </ul>
+
+            {{/if}}
+
+
+            {{#if isActingOut}}
+
+
+            <p class="lead">{{checkboxLabels.actingUp.explanation}}</p>
+
+            <ul class="unstyled">
+              {{#each checkboxLabels.actingUp.items}}
+              <li><label class="radio"><input type="radio" name="{{checkboxLabels.actingUp.explanation}}">{{this}}</label></li>
+              {{/each}}
+              <li><label class="radio pull-left"><input type="radio" name="{{checkboxLabels.actingUp.explanation}}">Other</label>
+                <input style="margin-left: 1em;" type="text" placeholder="please describe" />
+              </li>
+            </ul>
+
+            {{/if}}
+
+            <p class="offset4"><input type="button" value="next" class="btn btn-primary" id="disabilities-next" /></p>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</template>

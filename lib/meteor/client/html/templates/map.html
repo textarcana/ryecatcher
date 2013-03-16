@@ -1,0 +1,65 @@
+<head>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;key=YOUR_GOOGLE_MAPS_API_KEY_GOES_HERE">
+    </script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+</head>
+
+<template name="map_view">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span5">
+      <br>
+      <a href="/">Home</a> &gt; {{providerType}}
+    </div>
+    <div class="span3">
+      <br>
+      <a class="dropdown-toggle">Luella Edwards <span class="caret"></span></a> | <a class="fakelink">Support</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <a href="/circle"><img src="/images/placeholder/leftnav-circle.png" class="fakelink" alt="choose another provider" /></a>
+      <b>{{providerType}}</b>
+      {{> key_questions}}
+      {{> compare_and_save}}
+    </div>
+    <div class="span9">
+
+      <h2>{{providerType}}</h2>
+
+      <div class="btn-group">
+        <button class="btn"><a href="/grid">Grid View</a></button>
+        <button class="btn  active">Map View</button>
+      </div>
+      <br>
+      &nbsp;
+
+      <div class="map">
+
+        {{#isolate}}
+        <div id="map_canvas"></div>
+        {{/isolate}}
+        <br>
+        <br>
+
+      <ol class="detailed-listings">
+        {{#each listings}}
+        <li title="services offered: {{services}}">
+          <p title="{{name}}">
+            <a class="fakelink"><b>{{name}}</b></a>
+            <button class="btn btn-primary pull-right" onclick="fillTheRole(this)" data-id="{{_id}}">Fill Role</button><br>
+            <i>{{shortAddress}}</i>
+          </p>
+
+          <p><b>Services Offered</b><br>
+            {{services}}
+          </p>
+        </li>
+        {{/each}}
+      </ol>
+
+      </div>
+
+    </div>
+  </div>
+</template>

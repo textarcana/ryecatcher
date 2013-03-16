@@ -1,0 +1,54 @@
+<template name="search_providers_grid">
+  <div class="row nav">
+    {{> logo}}
+    <div class="span5">
+      <br>
+      <a class="fakelink">Home</a> &gt; <a>Search providers</a> &gt; {{providerType}}<br>
+    </div>
+    <div class="span3">
+      <br>
+      <a class="dropdown-toggle">Luella Edwards <span class="caret"></span></a> | <a class="fakelink">Support</a>
+    </div>
+  </div>
+  <div class="row  gridView">
+    <div class="span3">
+      <a href="/circle"><img src="/images/placeholder/leftnav-circle.png" class="fakelink" alt="choose another provider" /></a>
+      <ul class="unstyled">
+        {{> search_menu}}
+      </ul>
+      {{> key_questions}}
+    </div>
+    <div class="span6 search_providers_grid">
+      <h2>{{providerType}}</h2>
+
+      <div class="btn-group">
+        <button class="btn active">Grid View</button>
+        <button class="btn"><a href="/map">Map View</a></button>
+      </div>
+      <br>
+      &nbsp;
+      <ul class="unstyled listings">
+        {{#each listings}}
+        {{! TODO: lol @ this mess shoved into a data-content attribute! }}
+        <li class="role pull-left fakelink"
+            style="overflow: hidden; height: 160px;"
+            title="" id="{{_id}}" data-title="{{[Service Provider Name]}}"
+            data-content="{{name}}<br>{{postalAddress}}</a><br><br><b>Services Offered</b><br>{{services}}<br><br><a href='/map'>View on map</a><br><br><button class='btn btn-primary fill-the-role' data-id={{_id}} onclick=fillTheRole(this)>Fill the role</button>">
+
+          <!-- <b>Subjects available for tutoring</b><br>{{![Tutors and Academic Support]}}<br> -->
+
+          <p>
+            <img src="{{icon}}" alt="{{name}} service provider"><br><br>
+            <b><a class="fakelink">{{name}}</a></b><br>
+          </p>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="span3">
+      {{> compare_and_save}}
+
+      {{> overlay_provider_grid }}
+    </div>
+  </div>
+</template>

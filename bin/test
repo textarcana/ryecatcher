@@ -1,0 +1,248 @@
+#!/usr/bin/env bash
+
+# Talk to NS if you want pointers on how to configure your Mac or
+# CentOS host to run this test script.
+
+cd lib/meteor
+
+lockfile=/tmp/ryecatcher-autotest.lock
+files_for_search=/tmp/ryecatcher-autotest-files
+
+tidy_conf="
+--doctype omit
+--tidy-mark no
+--show-warnings yes
+--gnu-emacs yes
+--new-blocklevel-tags template
+--show-warnings yes
+--show-info no
+--output-file /tmp/tidy.html
+"
+tidy_ignore_regex='(DOCTYPE|title|not approved|proprietary attribute|implicit <body>|trimming empty|missing <li>)|"tabindex" has invalid value "-1"|missing </template> before <li>|inserting implicit <ul>|missing </ul> before </template>|missing quote mark for attribute value'
+
+csslint_conf="
+--quiet
+--ignore=ids,qualified-headings,box-model
+"
+
+
+set -e
+
+find . -type f -not \( -path *.meteor* -o -path *vendor* \)  > $files_for_search
+
+js_files=`egrep '.js$' $files_for_search`
+html_files=`egrep '.html$' $files_for_search`
+css_files=`egrep '.css$' $files_for_search`
+
+set +e
+
+jshint_runner () {
+    jshint $js_files
+}
+
+jsLint_runner () {
+        jslint --predef Meteor --predef Template --predef '$' \
+            --predef '_' --predef Session --predef setTitle --predef Conf \
+            --predef getInSchoolRoles --predef getExternalRoles \
+            --predef getProviderData --predef defaultCircle --predef Listings \
+            --predef Accounts --predef ServiceProviderRolesV2 \
+            --predef google --predef __meteor_bootstrap__ \
+            --predef makeInfoWindowEvent --predef ResourceProviderCategories \
+            --predef ListingsV2 --predef searchProviders --predef searchIcon \
+            --predef UnfilledCircles --predef circleListingCardFactory \
+            --predef circleDroppableBehavior \
+            --plusplus \
+            --devel \
+            --vars \
+            --nomen \
+            --sloppy \
+            --white \
+            --terse \
+            --browser $js_files | \
+         egrep -v 'is OK.$' | egrep -v '^ *$'
+
+}
+
+
+html5tidy_runner () {
+
+    tidy $tidy_conf $html_files 2>&1 | \
+        egrep -v "$tidy_ignore_regex" | \
+        egrep -v '^$' | \
+        egrep '^./' >&2
+
+}
+
+# sudo npm install -g csslint
+csslint_runner () {
+        csslint $csslint_conf $css_files
+}
+
+whitespace_sniffer () {
+        egrep ' +$' $js_files $html_files $css_files && \
+        echo 'Please fix EOL whitespace in the files mentioned above.'
+}
+
+# Closure checks for undeclared variables! Very important.
+
+google_closure_runner () {
+    java -jar /opt/closure/compiler.jar $js_files \
+        --warning_level DEFAULT \
+        --jscomp_off missingProperties \
+        --compilation_level ADVANCED_OPTIMIZATIONS \
+        --externs ../../tests/conf/externs.js | \
+        > /dev/null
+
+}
+
+# doubled template name will TAKE DOWN THE SITE when deployed to --
+# meteor.com, apparently :(((
+#
+# A JS error is displayed in the console when this happens, but
+# otherwise the result is a completely blank page.
+#
+# TODO use an HTML parser not a regex
+
+list_duplicated_templates () {
+    egrep '<template [^>]*name=' $html_files | \
+        perl -lwne 'm{name="(.*)"} and print $1' | \
+        sort | \
+        uniq -c | \
+        egrep -v '^ +1'
+}
+
+duplicated_template_sniffer () {
+    dupes=`list_duplicated_templates` && \
+        (echo FAILURE: Duplicate templates detected! && \
+        echo && \
+        echo $dupes && \
+        echo &&\
+        exit 1)
+}
+
+debuggery_sniffer () {
+    todos_count=$(echo "$html_files $css_files $js_files" | \
+        xargs egrep -i '\btodo\b' | \
+        wc -l | \
+        tr -d ' ')
+
+    declared_in_controller_count=$(echo "$js_files" | \
+        grep /controllers/ | \
+        xargs egrep '(^ +(var|function))' | \
+        wc -l | \
+        tr -d ' '
+    )
+
+    inline_styles=$(
+        echo $html_files | \
+            xargs egrep '<[^<]+(style)=[^>]+>' | \
+            wc -l | \
+            tr -d ' '
+    )
+
+    files_of_code=$(echo "$html_files $css_files $js_files" | \
+        wc -l | \
+        tr -d ' ')
+
+    lines_of_code=$(echo "$html_files $css_files $js_files" | \
+        xargs wc -l | \
+        tail -n1)
+
+    unique_token_count=$(export LC_ALL='C'; \
+        echo $html_files $css_files $js_files | \
+        xargs perl -lwpe 's{(\W)}{ $1 }g' | \
+        perl -lwpe 's{\s+}{\n}g' | \
+        sort | \
+        uniq | \
+        wc -l)
+
+    console_call_count=$(echo $js_files | \
+        xargs egrep '\bconsole\.' | \
+        wc -l | \
+        tr -d ' ')
+
+    if [ $declared_in_controller_count != 0 ]
+    then
+        echo $declared_in_controller_count variables declared in controllers >&2
+    fi
+
+    if [ $inline_styles != 0 ]
+    then
+        echo $inline_styles inline style declarations >&2
+    fi
+
+    if [ $console_call_count != 0 ]
+    then
+        echo $console_call_count calls to window.console >&2
+    fi
+
+    if [ $todos_count != 0 ]
+    then
+        echo $todos_count TODOs >&2
+    fi
+
+    echo $files_of_code files >&2
+    echo $lines_of_code lines of code >&2
+    echo $unique_token_count unique tokens >&2
+
+}
+
+callgraph_generator () {
+
+    test -f /tmp/ryecatcher-callgraph-generator.lock && exit 1
+
+    touch /tmp/ryecatcher-callgraph-generator.lock
+
+    test -d .callgraphs || mkdir .callgraphs
+
+    test -f .callgraphs/*_callgraph.png && rm .callgraphs/*_callgraph.png
+
+    echo $js_files | tr ' ' '\n' | xargs -I @ bin/js_callgraph_neato @ && \
+        mv *_callgraph.png .callgraphs/
+
+    rm /tmp/ryecatcher-callgraph-generator.lock
+
+}
+
+
+static_analysis_runner () {
+
+    export -f google_closure_runner
+    export -f whitespace_sniffer
+    export -f csslint_runner
+    export -f html5tidy_runner
+    export -f jshint_runner
+    export -f jsLint_runner
+    export -f duplicated_template_sniffer
+    export -f debuggery_sniffer
+    export -f callgraph_generator
+
+    google_closure_runner; \
+    whitespace_sniffer; \
+    csslint_runner; \
+    html5tidy_runner; \
+    jshint_runner; \
+    jsLint_runner; \
+    duplicated_template_sniffer; \
+    debuggery_sniffer | \
+        parallel '{}'
+
+    buildstamp=`date "+%Z %Y-%m-%d %H:%M:%S"`
+
+    echo RyeCatcher: $buildstamp
+
+    test -f $lockfile && \
+        ruby -rubygems -e "require 'time-lord'; puts Time.parse(ARGV.join(' ')).ago_in_words" `cat $lockfile` | \
+        perl -lpwe 's{$_}{Previously built $_}'
+
+    echo $buildstamp > $lockfile
+
+    echo "
+
+
+
+"
+
+}
+
+time static_analysis_runner

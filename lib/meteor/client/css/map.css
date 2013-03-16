@@ -1,0 +1,12 @@
+#map_canvas {
+   width: 714px;
+   height: 495px;
+}
+
+.detailed-listings li {
+   border: 1px solid #ccc;
+   border-radius: 3px;
+   padding: 12px;
+   margin-bottom: 6px;
+   background: white;
+}
